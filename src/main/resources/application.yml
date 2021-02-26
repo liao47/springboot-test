@@ -1,0 +1,18 @@
+server:
+  port: 8080
+unionpay:
+  url: https://gateway.test.95516.com
+  #url: https://gateway.95516.com
+  frontUrl: http://localhost:8080/web/success
+  notifyUrl: http://localhost:8080/unionpay/payNotify
+  refundNotifyUrl: http://localhost:8080/unionpay/refundNotify
+  downloadUrl: https://filedownload.95516.com/
+  encryptCertPath: acp_test_enc.cer
+  middleCertPath: acp_test_middle.cer
+  rootCertPath: acp_test_root.cer
+  #encryptCertPath: prod/acp_prod_enc.cer
+  #middleCertPath: prod/acp_prod_middle.cer
+  #rootCertPath: prod/acp_prod_root.cer
+  ifValidateCnName: false
+  expireMinutes: 20
+  billExpireHour: 10
