@@ -16,3 +16,4 @@ unionpay:
   ifValidateCnName: false
   expireMinutes: 20
   billExpireHour: 10
+  billDownloadDir: /data/unionpay

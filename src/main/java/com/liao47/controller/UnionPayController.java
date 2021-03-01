@@ -4,6 +4,7 @@ import com.github.liao47.common.exception.CustomException;
 import com.github.liao47.union.UnionPayService;
 import com.github.liao47.union.config.UnionProp;
 import com.github.liao47.union.enums.UnionRespCodeEnum;
+import com.github.liao47.union.model.BillDTO;
 import com.github.liao47.union.model.PayNotifyDTO;
 import com.github.liao47.union.model.RefundNotifyDTO;
 import com.github.liao47.union.model.req.PayReq;
@@ -20,6 +21,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 银联支付测试
@@ -120,6 +124,22 @@ public class UnionPayController {
         } catch (CustomException e) {
             return new ResponseEntity<>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    /**
+     * 下载对账文件
+     * @return
+     */
+    @PostMapping("download")
+    @ResponseBody
+    public List<BillDTO> download() {
+        List<BillDTO> bills = new ArrayList<>();
+        unionPayService.download(LocalDate.now().minusDays(1), getProp(), (billDTO, index) -> {
+            log.info("对账单第{}行:[{}]", index, billDTO);
+            //入库或其他操作，应避免用集合保存于内存中，数据过大会导致内存溢出
+            bills.add(billDTO);
+        });
+        return bills;
     }
 
     /**
