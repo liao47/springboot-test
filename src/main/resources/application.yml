@@ -1,5 +1,9 @@
 server:
   port: 8080
+spring:
+  thymeleaf:
+    enabled: true
+    cache: false
 unionpay:
   url: https://gateway.test.95516.com
   #url: https://gateway.95516.com

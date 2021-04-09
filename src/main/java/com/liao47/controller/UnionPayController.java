@@ -1,5 +1,6 @@
 package com.liao47.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.github.liao47.common.exception.CustomException;
 import com.github.liao47.union.UnionPayService;
 import com.github.liao47.union.config.UnionProp;
@@ -17,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -58,6 +60,24 @@ public class UnionPayController {
         } catch (Exception e) {
             log.error("银联支付异常:", e);
         }
+    }
+
+    /**
+     * 跳转银联支付
+     * @param model
+     * @return
+     */
+    @GetMapping("/jump")
+    public String jump(Model model) {
+        PayReq payReq = new PayReq();
+        UnionProp unionProp = getProp();
+        payReq.setOrderId("TEST" + System.currentTimeMillis());
+        payReq.setOrderDesc("测试订单");
+        payReq.setTxnAmt("1");
+        PayResp resp = unionPayService.pay(payReq, unionProp);
+
+        model.addAttribute("jumpData", JSON.parseObject(resp.getJson()));
+        return "jump";
     }
 
     /**
@@ -147,9 +167,9 @@ public class UnionPayController {
      *     可配置于数据库，读取数据库配置
      * @return
      */
-    public UnionProp getProp() {
+    private UnionProp getProp() {
         UnionProp unionProp = new UnionProp();
-        unionProp.setMerId("777290058183840");
+        unionProp.setMerId("777290058186899");
         unionProp.setSignCertPwd("000000");
         unionProp.setSignCertPath("acp_test_sign.pfx");
         return unionProp;
