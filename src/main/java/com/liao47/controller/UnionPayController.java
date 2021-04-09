@@ -47,8 +47,8 @@ public class UnionPayController {
      */
     @GetMapping("pay")
     public void pay(HttpServletResponse response) {
-        PayReq payReq = new PayReq();
         UnionProp unionProp = getProp();
+        PayReq payReq = new PayReq();
         payReq.setOrderId("TEST" + System.currentTimeMillis());
         payReq.setOrderDesc("测试订单");
         payReq.setTxnAmt("1");
@@ -69,8 +69,8 @@ public class UnionPayController {
      */
     @GetMapping("/jump")
     public String jump(Model model) {
-        PayReq payReq = new PayReq();
         UnionProp unionProp = getProp();
+        PayReq payReq = new PayReq();
         payReq.setOrderId("TEST" + System.currentTimeMillis());
         payReq.setOrderDesc("测试订单");
         payReq.setTxnAmt("1");
