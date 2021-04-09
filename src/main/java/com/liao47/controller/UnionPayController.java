@@ -41,7 +41,8 @@ public class UnionPayController {
     private UnionPayService unionPayService;
 
     /**
-     * 支付
+     * 支付<br>
+     *     使用响应中的html
      * @param response
      * @return
      */
@@ -63,7 +64,8 @@ public class UnionPayController {
     }
 
     /**
-     * 跳转银联支付
+     * 支付<br>
+     *     使用响应中的json
      * @param model
      * @return
      */
